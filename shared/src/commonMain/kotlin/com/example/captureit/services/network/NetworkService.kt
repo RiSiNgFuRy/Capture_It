@@ -1,7 +1,6 @@
 package com.example.captureit.services.network
 
 import com.example.captureit.commonInterfaces.getNetwork
-import com.example.captureit.utils.Constants.BASE_URL
 import com.example.captureit.utils.StringUtils
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -19,7 +18,7 @@ class NetworkService {
         requestBody: T
     ): Response<R> {
         try {
-            val res = network.client.post(BASE_URL + path) {
+            val res = network.client.post("BuildConfig.BASE_URL" + path) {
                 queries.entries.forEach {
                     parameter(it.key, it.value)
                 }
@@ -37,7 +36,7 @@ class NetworkService {
         queries: HashMap<String, String> = hashMapOf()
     ): Response<R> {
         try {
-            val res = network.client.get(BASE_URL + path) {
+            val res = network.client.get("BuildConfig.BASE_URL" + path) {
                 queries.entries.forEach {
                     parameter(it.key, it.value)
                 }

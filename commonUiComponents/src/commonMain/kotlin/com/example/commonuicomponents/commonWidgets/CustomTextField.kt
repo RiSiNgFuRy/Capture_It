@@ -1,4 +1,4 @@
-package com.example.captureit.commonWidgets
+package com.example.commonuicomponents.commonWidgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,7 +19,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.captureit.utils.StringUtils
 
 @Composable
 fun CustomTextField(
@@ -49,7 +48,7 @@ fun CustomTextField(
 ) {
     TextField(
         value = value ?: TextFieldValue(
-           text = StringUtils.EMPTY
+           text = ""
         ),
         onValueChange = onValueChange ?: {},
         modifier = modifier

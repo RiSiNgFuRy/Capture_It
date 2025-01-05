@@ -1,0 +1,7 @@
+<resources>
+    <string name="pre_t_and_c_txt">Before continuing please go through</string>
+    <string name="t_and_c_txt"> Terms &amp; Conditions</string>
+    <string name="post_t_and_c_txt">.</string>
+    <string name="get_started">Get Started</string>
+    <string name="welcome_to_app">Welcome to App</string>
+</resources>

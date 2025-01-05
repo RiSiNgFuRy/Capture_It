@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "CaptureIt"
 include(":captureIt-android")
 include(":shared")
+include(":commonUiComponents")
