@@ -21,7 +21,7 @@ import captureit.shared.generated.resources.Nunito_Regular
 import captureit.shared.generated.resources.Nunito_SemiBold
 import captureit.shared.generated.resources.Nunito_SemiBoldItalic
 import captureit.shared.generated.resources.Res
-import com.example.captureit.helpers.tdp
+import com.example.captureit.commonHelpers.txtDp
 import org.jetbrains.compose.resources.Font
 
 @Composable
@@ -50,63 +50,63 @@ fun getTypography(): Typography {
     return Typography(
         displayLarge = baseline.displayLarge.copy(
             fontFamily = nunitoFamily,
-            fontSize = 22.tdp,
+            fontSize = 22.txtDp,
         ),
         displayMedium = baseline.displayMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 14.tdp,
+            fontSize = 14.txtDp,
         ),
         displaySmall = baseline.displaySmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 8.tdp,
+            fontSize = 8.txtDp,
         ),
         headlineLarge = baseline.headlineLarge.copy(
             fontFamily = nunitoFamily,
-            fontSize = 20.tdp,
+            fontSize = 20.txtDp,
         ),
         headlineMedium = baseline.headlineMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 18.tdp,
+            fontSize = 18.txtDp,
         ),
         headlineSmall = baseline.headlineSmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 16.tdp,
+            fontSize = 16.txtDp,
         ),
         titleLarge = baseline.titleLarge.copy(
             fontFamily = nunitoFamily,
-            fontSize = 18.tdp,
+            fontSize = 18.txtDp,
         ),
         titleMedium = baseline.titleMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 16.tdp,
+            fontSize = 16.txtDp,
         ),
         titleSmall = baseline.titleSmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 14.tdp,
+            fontSize = 14.txtDp,
         ),
         bodyLarge = baseline.bodyLarge.copy(
             fontFamily = nunitoFamily,
-            fontSize = 14.tdp,
+            fontSize = 14.txtDp,
         ),
         bodyMedium = baseline.bodyMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 12.tdp,
+            fontSize = 12.txtDp,
         ),
         bodySmall = baseline.bodySmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 10.tdp,
+            fontSize = 10.txtDp,
         ),
         labelLarge =  baseline.labelLarge .copy(
             fontFamily = nunitoFamily,
-            fontSize = 10.tdp,
+            fontSize = 10.txtDp,
         ),
         labelMedium = baseline.labelMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 8.tdp,
+            fontSize = 8.txtDp,
         ),
         labelSmall = baseline.labelSmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 6.tdp,
+            fontSize = 6.txtDp,
         ),
     )
 }

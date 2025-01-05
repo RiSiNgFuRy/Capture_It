@@ -13,7 +13,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_1_8 )
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -30,6 +30,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.commonUiComponents)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
@@ -42,7 +43,9 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(compose.components.resources)
             implementation(compose.material3)
+            implementation(compose.foundation)
             implementation(compose.ui)
+            implementation(compose.components.uiToolingPreview)
             implementation(compose.runtime)
             implementation(libs.navigation.compose)
             implementation(libs.constraint.layout)
@@ -50,11 +53,6 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.coil.compose.core)
             implementation(libs.coil.compose)
-            implementation(libs.androidx.ui.graphics)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.compose.ui.tooling)
-            implementation(libs.androidx.ui.test.manifest)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -76,10 +74,26 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 24
+        buildConfigField ("String", "BASE_URL", "\"ndwe.in/huhvd\"")
+        buildConfigField("Boolean", "IS_LOGGING_ENABLED", "true")
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            buildConfigField("Boolean", "IS_LOGGING_ENABLED", "false")
+        }
+        debug {}
     }
 }
 

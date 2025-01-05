@@ -56,8 +56,10 @@ open class BaseViewModel: ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        if (vmScope.coroutineContext.job.isActive) {
-            vmScope.coroutineContext.job.cancel()
+        vmScope.coroutineContext.job.run {
+            if (isActive) {
+                this.cancel()
+            }
         }
     }
 }
