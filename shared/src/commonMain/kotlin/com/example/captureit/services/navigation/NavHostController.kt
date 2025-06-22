@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.captureit.onboarding.screens.LoginScreen
 import com.example.captureit.onboarding.screens.OnboardingScreen
-import com.example.captureit.onboarding.viewmodels.OnboardingViewModel
 
 @Composable
 fun initializeNavController() {
@@ -16,7 +16,11 @@ fun initializeNavController() {
         startDestination = OnboardingScreen
     ) {
         composable<OnboardingScreen> {
-            OnboardingScreen(navController, OnboardingViewModel())
+            OnboardingScreen(navController)
+        }
+
+        composable<LoginScreen> {
+            LoginScreen(navController)
         }
     }
 }

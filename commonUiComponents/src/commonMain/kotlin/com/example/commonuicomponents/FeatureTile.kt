@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
@@ -16,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.commonuicomponents.commonWidgets.CustomImage
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FeatureTile(
@@ -28,6 +31,7 @@ fun FeatureTile(
     imageSize: Dp = 1.dp,
     imagePath: String,
     title: String,
+    titleTextStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     isSelected: Boolean = false
 ) {
     val imgSize = animateDpAsState(
@@ -62,8 +66,7 @@ fun FeatureTile(
             modifier = Modifier
                 .padding(top = 8.dp),
             text = title,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.outline,
+            style = titleTextStyle,
             textAlign = TextAlign.Center,
             softWrap = true,
             maxLines = 2,

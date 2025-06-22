@@ -22,33 +22,22 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "commonUiComponents"
+            baseName = "theme"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.theme)
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
-            implementation(libs.coil.compose.core)
-            implementation(libs.coil.compose)
             implementation(compose.components.resources)
             implementation(compose.material3)
             implementation(compose.ui)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.runtime)
-            implementation(libs.constraint.layout)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
         }
     }
 }
 
 android {
-    namespace = "com.example.commonuicomponents"
+    namespace = "com.example.theme"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
@@ -61,3 +50,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
+compose.resources {
+    publicResClass = true
+    generateResClass = always
+}
+

@@ -16,7 +16,7 @@ import coil3.compose.EqualityDelegate
 
 @Composable
 fun CustomImage(
-    path: String,
+    path: Any,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null,

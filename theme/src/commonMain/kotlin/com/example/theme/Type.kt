@@ -1,27 +1,27 @@
-package com.example.captureit.theme
+package com.example.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
-import captureit.shared.generated.resources.Nunito_Black
-import captureit.shared.generated.resources.Nunito_BlackItalic
-import captureit.shared.generated.resources.Nunito_Bold
-import captureit.shared.generated.resources.Nunito_BoldItalic
-import captureit.shared.generated.resources.Nunito_ExtraBold
-import captureit.shared.generated.resources.Nunito_ExtraBoldItalic
-import captureit.shared.generated.resources.Nunito_ExtraLight
-import captureit.shared.generated.resources.Nunito_ExtraLightItalic
-import captureit.shared.generated.resources.Nunito_Italic
-import captureit.shared.generated.resources.Nunito_Light
-import captureit.shared.generated.resources.Nunito_LightItalic
-import captureit.shared.generated.resources.Nunito_Medium
-import captureit.shared.generated.resources.Nunito_MediumItalic
-import captureit.shared.generated.resources.Nunito_Regular
-import captureit.shared.generated.resources.Nunito_SemiBold
-import captureit.shared.generated.resources.Nunito_SemiBoldItalic
-import captureit.shared.generated.resources.Res
-import com.example.captureit.commonHelpers.txtDp
+import captureit.theme.generated.resources.Nunito_Black
+import captureit.theme.generated.resources.Nunito_BlackItalic
+import captureit.theme.generated.resources.Nunito_Bold
+import captureit.theme.generated.resources.Nunito_BoldItalic
+import captureit.theme.generated.resources.Nunito_ExtraBold
+import captureit.theme.generated.resources.Nunito_ExtraBoldItalic
+import captureit.theme.generated.resources.Nunito_ExtraLight
+import captureit.theme.generated.resources.Nunito_ExtraLightItalic
+import captureit.theme.generated.resources.Nunito_Italic
+import captureit.theme.generated.resources.Nunito_Light
+import captureit.theme.generated.resources.Nunito_LightItalic
+import captureit.theme.generated.resources.Nunito_Medium
+import captureit.theme.generated.resources.Nunito_MediumItalic
+import captureit.theme.generated.resources.Nunito_Regular
+import captureit.theme.generated.resources.Nunito_SemiBold
+import captureit.theme.generated.resources.Nunito_SemiBoldItalic
+import captureit.theme.generated.resources.Res
+import com.example.theme.helpers.txtDp
 import org.jetbrains.compose.resources.Font
 
 @Composable
@@ -50,15 +50,15 @@ fun getTypography(): Typography {
     return Typography(
         displayLarge = baseline.displayLarge.copy(
             fontFamily = nunitoFamily,
-            fontSize = 22.txtDp,
+            fontSize = 28.txtDp,
         ),
         displayMedium = baseline.displayMedium.copy(
             fontFamily = nunitoFamily,
-            fontSize = 14.txtDp,
+            fontSize = 18.txtDp,
         ),
         displaySmall = baseline.displaySmall.copy(
             fontFamily = nunitoFamily,
-            fontSize = 8.txtDp,
+            fontSize = 12.txtDp,
         ),
         headlineLarge = baseline.headlineLarge.copy(
             fontFamily = nunitoFamily,

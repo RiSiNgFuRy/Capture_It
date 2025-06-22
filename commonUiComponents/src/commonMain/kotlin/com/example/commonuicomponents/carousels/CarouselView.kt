@@ -42,7 +42,6 @@ fun CarouselView(
 
         CLazyRow(
             modifier = Modifier
-                .fillMaxWidth()
                 .constrainAs(itemView) {
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
