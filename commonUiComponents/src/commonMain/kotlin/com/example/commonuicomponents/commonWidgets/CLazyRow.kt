@@ -32,7 +32,7 @@ fun CLazyRow(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     scrollType: ScrollType = ScrollType.Normal,
-    indexOfItemInHighlight: MutableState<Int>? = null,
+    indexOfSelectedItem: MutableState<Int>? = null,
     content: LazyListScope.() -> Unit,
 ) {
     LazyRow(
@@ -47,27 +47,26 @@ fun CLazyRow(
         content = content,
     )
     if (scrollType != ScrollType.Normal)
-        setScrollType(scrollType, state, indexOfItemInHighlight)
+        setScrollType(scrollType, state, indexOfSelectedItem)
 }
 
 @Composable
 fun setScrollType (
     scrollType: ScrollType,
     lazyListState: LazyListState,
-    indexOfItemInHighlight: MutableState<Int>? = null
+    indexOfSelectedItem: MutableState<Int>? = null
 ) {
-    val currentIndex = indexOfItemInHighlight ?: remember { mutableIntStateOf(0) }
+    val currentIndex = indexOfSelectedItem ?: remember { mutableIntStateOf(0) }
     val previousFirstIndex = remember { mutableIntStateOf(0) }
-    var canReplay = true
 
     LaunchedEffect(lazyListState.isScrollInProgress) {
         currentIndex.value = lazyListState.firstVisibleItemIndex
         val firstVisibleItemOffset = lazyListState.firstVisibleItemScrollOffset
 
         if (lazyListState.canScrollForward.not()) {
-            indexOfItemInHighlight?.value = currentIndex.value + 1
+            indexOfSelectedItem?.value = currentIndex.value + 1
         } else if (firstVisibleItemOffset == 0) {
-            indexOfItemInHighlight?.value = currentIndex.value
+            indexOfSelectedItem?.value = currentIndex.value
         }
 
         when(scrollType) {
@@ -76,7 +75,7 @@ fun setScrollType (
                     firstVisibleItemOffset > 0 &&
                     lazyListState.canScrollForward
                 ) {
-                    indexOfItemInHighlight?.value = currentIndex.value
+                    indexOfSelectedItem?.value = currentIndex.value
                     lazyListState.animateScrollToItem(currentIndex.value)
                 }
             }
@@ -123,7 +122,6 @@ fun setScrollType (
 
             is ScrollType.AutoScrollRight -> {
                 if (lazyListState.isScrollInProgress.not()) {
-                    canReplay = true
                     lazyListState.animateScrollToItem(
                         (currentIndex.value + 1) % lazyListState.layoutInfo.totalItemsCount
                     )

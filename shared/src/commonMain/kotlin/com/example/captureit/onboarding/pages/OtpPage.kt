@@ -1,4 +1,4 @@
-package com.example.captureit.onboarding.screens
+package com.example.captureit.onboarding.pages
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,23 +33,32 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import captureit.shared.generated.resources.Res
+import captureit.shared.generated.resources.didn_t_receive_otp_yet
 import captureit.shared.generated.resources.enter_your_otp
+import captureit.shared.generated.resources.resend_now
 import captureit.shared.generated.resources.verify_your_otp
+import com.example.captureit.onboarding.viewmodels.LoginSignupSharedViewModel
 import com.example.captureit.onboarding.viewmodels.OtpViewModel
 import com.example.captureit.utils.StringUtils
+import com.example.commonuicomponents.commonWidgets.CountdownTimer
+import com.example.commonuicomponents.helpers.TimeFormat
+import com.example.commonuicomponents.helpers.visibility
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
-fun OtpPage(viewModel: OtpViewModel = koinViewModel()) {
+fun OtpPage(
+    loginSignupSharedViewModel: LoginSignupSharedViewModel,
+    viewModel: OtpViewModel = koinViewModel()
+) {
     val focusManager = LocalFocusManager.current
     val isOtpFieldFocused = remember { mutableStateOf(false) }
     val otpFields = remember { List(6) { mutableStateOf(StringUtils.EMPTY) } }
     val focusRequesters = remember { List(6) { FocusRequester() } }
+    val canResendOtp = remember { mutableStateOf(false) }
 
-    // Request focus on the first field when the page loads
     LaunchedEffect(Unit) {
         focusRequesters[0].requestFocus()
     }
@@ -65,7 +73,7 @@ fun OtpPage(viewModel: OtpViewModel = koinViewModel()) {
                 focusManager.clearFocus()
             }
     ) {
-        val (pageTitleTxt, subTitleTxt, otpRow) = createRefs()
+        val (pageTitleTxt, subTitleTxt, otpRow, helpText, resendNow, resendTimer) = createRefs()
 
         Text(
             modifier = Modifier
@@ -114,7 +122,6 @@ fun OtpPage(viewModel: OtpViewModel = koinViewModel()) {
                     },
                     modifier = Modifier
                         .size(60.dp)
-                        .wrapContentSize()
                         .padding(end = 12.dp)
                         .focusRequester(focusRequesters[index])
                         .onFocusChanged { focusState ->
@@ -159,6 +166,48 @@ fun OtpPage(viewModel: OtpViewModel = koinViewModel()) {
                     singleLine = true
                 )
             }
+        }
+
+        Text(
+            modifier = Modifier
+                .constrainAs(helpText) {
+                    top.linkTo(otpRow.bottom, 12.dp)
+                    start.linkTo(otpRow.start)
+                },
+            style = MaterialTheme.typography.bodyMedium,
+            text = stringResource(Res.string.didn_t_receive_otp_yet),
+        )
+
+        Text(
+            modifier = Modifier
+                .constrainAs(resendNow) {
+                    bottom.linkTo(helpText.bottom)
+                    start.linkTo(helpText.end, 8.dp)
+                }
+                .visibility(canResendOtp.value)
+                .clickable {
+                    viewModel.resendOtp(loginSignupSharedViewModel.userPhoneNumber)
+                },
+            text = stringResource(Res.string.resend_now),
+            style = MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.onSecondary
+            ),
+        )
+
+        CountdownTimer(
+            modifier = Modifier
+                .constrainAs(resendTimer) {
+                    bottom.linkTo(helpText.bottom)
+                    start.linkTo(helpText.end, 8.dp)
+                }
+                .visibility(canResendOtp.value.not()),
+            initialTime = 30,
+            format = TimeFormat.MM_SS,
+            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.onSecondary
+            ),
+        ) { secondsLeft ->
+            canResendOtp.value = secondsLeft == 0
         }
     }
 }

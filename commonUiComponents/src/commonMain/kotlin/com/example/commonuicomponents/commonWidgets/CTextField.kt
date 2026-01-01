@@ -48,13 +48,7 @@ fun CTextField(
     TextField(
         value = value,
         onValueChange = onValueChange ?: {},
-        modifier = modifier
-            .background(color = Color.White)
-            .border(
-                width = 1.dp,
-                color = Color.Black,
-                shape = RoundedCornerShape(size = 12.dp)
-            ),
+        modifier = modifier,
         enabled = enabled,
         readOnly = readOnly,
         textStyle = textStyle,

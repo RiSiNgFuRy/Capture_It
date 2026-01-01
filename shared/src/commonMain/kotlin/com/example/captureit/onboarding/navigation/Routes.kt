@@ -9,3 +9,6 @@ object PhoneNumberPage: OnboardingScreens()
 
 @Serializable
 object OtpPage: OnboardingScreens()
+
+@Serializable
+object SignUpPage: OnboardingScreens()

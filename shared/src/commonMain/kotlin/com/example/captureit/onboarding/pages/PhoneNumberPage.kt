@@ -1,10 +1,11 @@
-package com.example.captureit.onboarding.screens
+package com.example.captureit.onboarding.pages
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
@@ -33,6 +34,7 @@ import androidx.constraintlayout.compose.Dimension
 import captureit.shared.generated.resources.Res
 import captureit.shared.generated.resources.enter_your_phone_number
 import captureit.shared.generated.resources.login_to_your_account
+import com.example.captureit.onboarding.viewmodels.LoginSignupSharedViewModel
 import com.example.captureit.onboarding.viewmodels.PhoneNumberViewModel
 import com.example.captureit.utils.StringUtils
 import org.jetbrains.compose.resources.stringResource
@@ -41,7 +43,10 @@ import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
-fun PhoneNumberPage(viewModel: PhoneNumberViewModel = koinViewModel()) {
+fun PhoneNumberPage(
+    loginSignupSharedViewModel: LoginSignupSharedViewModel,
+    viewModel: PhoneNumberViewModel = koinViewModel()
+) {
     val focusRequester = remember { FocusRequester() }
     val userPhoneNumber = remember { mutableStateOf(StringUtils.EMPTY) }
     val focusManager = LocalFocusManager.current
@@ -139,8 +144,10 @@ fun PhoneNumberPage(viewModel: PhoneNumberViewModel = koinViewModel()) {
             value = userPhoneNumber.value,
             onValueChange = { newValue ->
                 userPhoneNumber.value = newValue
+                loginSignupSharedViewModel.userPhoneNumber = "$selectedCountryCode $newValue"
             },
             modifier = Modifier
+                .height(60.dp)
                 .constrainAs(numberEditBox) {
                     width = Dimension.fillToConstraints
                     top.linkTo(subTitleTxt.bottom, 15.dp)

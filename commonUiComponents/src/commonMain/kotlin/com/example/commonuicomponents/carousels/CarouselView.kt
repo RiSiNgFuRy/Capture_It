@@ -1,11 +1,12 @@
 package com.example.commonuicomponents.carousels
 
+import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -28,6 +29,7 @@ fun CarouselView(
     indicatorWidget: List<@Composable ((isSelected: Boolean) -> Unit)>? = null,
     indicatorDirection: Direction = Direction.BOTTOM,
     scrollType: ScrollType = ScrollType.Normal,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     indicatorArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
     indicatorPadding: PaddingValues = PaddingValues(16.dp)
 ) {
@@ -49,7 +51,8 @@ fun CarouselView(
                 },
             state = lazyListState,
             scrollType = scrollType,
-            indexOfItemInHighlight = currentIndex
+            indexOfSelectedItem = currentIndex,
+            flingBehavior = flingBehavior,
         ) {
             items(items.size) {
                 items[it].invoke()

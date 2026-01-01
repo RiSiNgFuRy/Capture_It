@@ -39,7 +39,7 @@ fun CustomImage(
         contentDescription = contentDescription ?: "",
         placeholder = placeholder,
         error = error,
-        fallback = fallback,
+        fallback  = fallback,
         onLoading = onLoading,
         onSuccess = onSuccess,
         onError = onError,

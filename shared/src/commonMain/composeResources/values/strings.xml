@@ -2,12 +2,15 @@
     <string name="pre_t_and_c_txt">Before continuing please go through </string>
     <string name="t_and_c_txt">Terms &amp; Conditions</string>
     <string name="post_t_and_c_txt">.</string>
-    <string name="get_started">Get Started</string>
+    <string name="get_started">GET STARTED</string>
     <string name="welcome_to_app">Welcome to App</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="login_to_your_account">Login to your account</string>
     <string name="send_otp">SEND OTP</string>
     <string name="verify">VERIFY</string>
+    <string name="done">DONE</string>
     <string name="verify_your_otp">Verify your OTP</string>
     <string name="enter_your_otp">Enter your otp here</string>
+    <string name="didn_t_receive_otp_yet">Didn't receive otp yet?</string>
+    <string name="resend_now">Resend now</string>
 </resources>

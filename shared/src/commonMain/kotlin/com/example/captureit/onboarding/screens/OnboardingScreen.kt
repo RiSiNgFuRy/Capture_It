@@ -1,5 +1,8 @@
 package com.example.captureit.onboarding.screens
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,20 +42,25 @@ import com.example.captureit.onboarding.helpers.Constants.CLICKABLE_TEXT_ANNOTAT
 import com.example.captureit.onboarding.helpers.Constants.TERMS_AND_CONDITIONS_TAG
 import com.example.captureit.onboarding.viewmodels.OnboardingViewModel
 import com.example.captureit.services.navigation.LoginScreen
+import com.example.captureit.utils.StringUtils
 import com.example.commonuicomponents.FeatureTile
 import com.example.commonuicomponents.carousels.ImageCarouselView
 import com.example.commonuicomponents.commonWidgets.CTextButton
-import com.example.commonuicomponents.commonWidgets.TextButtonType
+import com.example.commonuicomponents.helpers.NoFlingBehavior
 import com.example.commonuicomponents.helpers.ScrollType
 import com.example.theme.scrimLightHighContrast
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
+import androidx.compose.foundation.clickable
+import com.example.commonuicomponents.helpers.StyleType
 
-@OptIn(KoinExperimentalAPI::class)
+@OptIn(KoinExperimentalAPI::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun OnboardingScreen(
     baseNavController: NavController,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
     val imageCarouselIndex = remember { mutableIntStateOf(0) }
@@ -75,6 +82,7 @@ fun OnboardingScreen(
                     },
                 listOfImagePaths = viewModel.imagePaths,
                 scrollType = ScrollType.SnapInScrolledDirection,
+                flingBehavior = NoFlingBehavior,
                 indexOfItemInHighlight = imageCarouselIndex
             )
 
@@ -125,24 +133,29 @@ fun OnboardingScreen(
                     )
                 }
             }
-            CtaLayout(
+            CtaWithTermsAndConditionsLayout(
                 modifier = Modifier
                     .constrainAs(ctasLayout) {
                         width = Dimension.matchParent
                         bottom.linkTo(parent.bottom)
                     },
                 baseNavController = baseNavController,
-                scaffoldPaddingValues = paddingValue
+                scaffoldPaddingValues = paddingValue,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
             )
         }
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CtaLayout(
+fun CtaWithTermsAndConditionsLayout(
     modifier: Modifier,
     baseNavController: NavController,
-    scaffoldPaddingValues: PaddingValues
+    scaffoldPaddingValues: PaddingValues,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
     val termAndConditionsStringStyle = MaterialTheme.typography.bodyMedium
     val tAndCPreTxt = stringResource(Res.string.pre_t_and_c_txt)
@@ -171,40 +184,46 @@ fun CtaLayout(
     ) {
         val (cta, termsAndConditions) = createRefs()
 
-        CTextButton(
-            text = stringResource(Res.string.get_started),
-            type = TextButtonType.SECONDARY,
-            modifier = Modifier
-                .constrainAs(cta) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(termsAndConditions.top)
-                }
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            onClick = { baseNavController.navigate(LoginScreen) },
-        )
+        with(sharedTransitionScope) {
+            CTextButton(
+                text = stringResource(Res.string.get_started),
+                type = StyleType.SECONDARY,
+                modifier = Modifier
+                    .constrainAs(cta) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(termsAndConditions.top)
+                    }
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .sharedElement(
+                        state = rememberSharedContentState(key = StringUtils.CTA_ANIMATION_KEY),
+                        animatedVisibilityScope = animatedContentScope
+                    ),
+                onClick = { baseNavController.navigate(LoginScreen) },
+            )
+        }
 
-        ClickableText(
+        Text(
             modifier = Modifier
                 .constrainAs(termsAndConditions) {
                     bottom.linkTo(parent.bottom, scaffoldPaddingValues.calculateBottomPadding())
                 }
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .clickable {
+                    termAndConditionsString.getStringAnnotations(
+                        tag = TERMS_AND_CONDITIONS_TAG,
+                        start = 0,
+                        end = termAndConditionsString.length
+                    ).firstOrNull()?.let {
+                        baseNavController.navigate(LoginScreen)
+                    }
+                },
             text = termAndConditionsString,
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = MaterialTheme.colorScheme.surfaceContainerLowest
             ),
-            softWrap = true,
-            onClick = { offset ->
-                termAndConditionsString.getStringAnnotations(
-                    tag = TERMS_AND_CONDITIONS_TAG,
-                    start = offset,
-                    end = offset
-                ).firstOrNull()?.let {
-                    baseNavController.navigate(LoginScreen)
-                }
-            }
+            softWrap = true
         )
     }
 }
