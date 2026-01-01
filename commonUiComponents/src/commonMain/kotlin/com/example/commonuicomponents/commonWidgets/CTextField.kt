@@ -16,15 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomTextField(
+fun CTextField(
     modifier: Modifier = Modifier,
-    value: TextFieldValue? = null,
-    onValueChange: ((TextFieldValue) -> Unit)? = null,
+    value: String = "",
+    onValueChange: ((String) -> Unit)? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -47,17 +46,9 @@ fun CustomTextField(
     colors: TextFieldColors = TextFieldDefaults.colors()
 ) {
     TextField(
-        value = value ?: TextFieldValue(
-           text = ""
-        ),
+        value = value,
         onValueChange = onValueChange ?: {},
-        modifier = modifier
-            .background(color = Color.White)
-            .border(
-                width = 1.dp,
-                color = Color.Black,
-                shape = RoundedCornerShape(size = 14.dp)
-            ),
+        modifier = modifier,
         enabled = enabled,
         readOnly = readOnly,
         textStyle = textStyle,

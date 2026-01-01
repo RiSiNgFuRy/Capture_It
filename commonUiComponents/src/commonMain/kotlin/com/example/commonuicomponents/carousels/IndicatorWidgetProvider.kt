@@ -15,6 +15,7 @@ fun IndicatorWidgetProvider(type: IndicatorType, isSelected: Boolean) {
                 type.imageSize,
                 type.imagePath,
                 type.title,
+                type.titleTextStyle,
                 isSelected
             )
         }

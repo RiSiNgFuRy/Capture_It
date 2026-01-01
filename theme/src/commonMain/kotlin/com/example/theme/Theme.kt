@@ -1,4 +1,4 @@
-package com.example.captureit.theme
+package com.example.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

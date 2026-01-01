@@ -31,6 +31,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.commonUiComponents)
+            implementation(projects.theme)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
@@ -47,7 +48,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.runtime)
-            implementation(libs.navigation.compose)
             implementation(libs.constraint.layout)
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)

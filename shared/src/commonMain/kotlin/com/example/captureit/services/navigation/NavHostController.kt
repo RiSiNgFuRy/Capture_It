@@ -1,22 +1,39 @@
 package com.example.captureit.services.navigation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.captureit.onboarding.screens.LoginScreen
 import com.example.captureit.onboarding.screens.OnboardingScreen
-import com.example.captureit.onboarding.viewmodels.OnboardingViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun initializeNavController() {
+fun App() {
     val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = OnboardingScreen
-    ) {
-        composable<OnboardingScreen> {
-            OnboardingScreen(navController, OnboardingViewModel())
+    SharedTransitionLayout {
+        NavHost(
+            navController = navController,
+            startDestination = OnboardingScreen
+        ) {
+            composable<OnboardingScreen> {
+                OnboardingScreen(
+                    baseNavController = navController,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable
+                )
+            }
+
+            composable<LoginScreen> {
+                LoginScreen(
+                    baseNavHostController = navController,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable
+                )
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.commonuicomponents.carousels
 
+import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
@@ -19,6 +21,7 @@ fun ImageCarouselView (
     indicatorWidgetType: List<IndicatorType> = emptyList(),
     indicatorDirection: Direction = Direction.BOTTOM,
     scrollType: ScrollType = ScrollType.SnapInScrolledDirection,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     indicatorArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
     indicatorPadding: PaddingValues = PaddingValues(16.dp)
 ){
@@ -29,6 +32,7 @@ fun ImageCarouselView (
         indicatorWidget = getComposableIndicatorView(indicatorWidgetType),
         indicatorDirection = indicatorDirection,
         scrollType = scrollType,
+        flingBehavior = flingBehavior,
         indicatorArrangement = indicatorArrangement,
         indicatorPadding = indicatorPadding
     )
