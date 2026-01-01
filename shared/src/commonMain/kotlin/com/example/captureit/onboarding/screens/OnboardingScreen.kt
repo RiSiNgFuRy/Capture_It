@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -48,12 +49,11 @@ import com.example.commonuicomponents.carousels.ImageCarouselView
 import com.example.commonuicomponents.commonWidgets.CTextButton
 import com.example.commonuicomponents.helpers.NoFlingBehavior
 import com.example.commonuicomponents.helpers.ScrollType
+import com.example.commonuicomponents.helpers.StyleType
 import com.example.theme.scrimLightHighContrast
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
-import androidx.compose.foundation.clickable
-import com.example.commonuicomponents.helpers.StyleType
 
 @OptIn(KoinExperimentalAPI::class, ExperimentalSharedTransitionApi::class)
 @Composable
